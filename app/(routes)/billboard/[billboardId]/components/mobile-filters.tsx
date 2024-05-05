@@ -4,18 +4,23 @@ import { useState } from "react";
 import { Plus, X } from "lucide-react";
 import { Dialog } from "@headlessui/react";
 
-import { Color, Size } from "@/types";
+import { Amenities, Category, Size } from "@/types";
 
 import Filter from "./filter";
-import Button from "@/components/ui/button";
 import IconButton from "@/components/ui/icon-button";
+import Button from "@/components/ui/button";
 
 interface MobileFiltersProps {
   sizes: Size[];
-  colors: Color[];
+  amenities: Amenities[];
+  categories: Category[];
 }
 
-const MobileFilters: React.FC<MobileFiltersProps> = ({ sizes, colors }) => {
+const MobileFilters: React.FC<MobileFiltersProps> = ({
+  sizes,
+  amenities,
+  categories,
+}) => {
   const [open, setOpen] = useState(false);
 
   const onOpen = () => setOpen(true);
@@ -24,7 +29,7 @@ const MobileFilters: React.FC<MobileFiltersProps> = ({ sizes, colors }) => {
   return (
     <>
       <Button onClick={onOpen} className="flex items-center gap-x-2 lg:hidden">
-        Filters
+        Bộ Lọc
         <Plus size={20} />
       </Button>
 
@@ -50,8 +55,13 @@ const MobileFilters: React.FC<MobileFiltersProps> = ({ sizes, colors }) => {
             </div>
 
             <div className="p-4">
-              <Filter valueKey="sizeId" name="Sizes" data={sizes} />
-              <Filter valueKey="colorId" name="Colors" data={colors} />
+              <Filter valueKey="categoryId" name="Thể Loại" data={categories} />
+              <Filter valueKey="sizeId" name="Kích Thước" data={sizes} />
+              <Filter
+                valueKey="amenitiesId"
+                name="Tiện Nghi"
+                data={amenities}
+              />
             </div>
           </Dialog.Panel>
         </div>

@@ -2,13 +2,13 @@
 
 import Button from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Color, Size } from "@/types";
+import { Amenities, Category, Size } from "@/types";
 
 import { useRouter, useSearchParams } from "next/navigation";
 import qs from "query-string";
 
 interface FilterProps {
-  data: (Size | Color)[];
+  data: (Size | Amenities | Category)[];
   name: string;
   valueKey: string;
 }
@@ -54,7 +54,9 @@ const Filter: React.FC<FilterProps> = ({ data, name, valueKey }) => {
               )}
               onClick={() => onClick(filter.id)}
             >
-              {filter.name}
+              {"name" in filter ? `${filter.name}` : ""}
+              {"roomName" in filter ? `${filter.roomName}` : ""}
+              {"bathroomName" in filter ? ` - ${filter.bathroomName}` : ""}
             </Button>
           </div>
         ))}

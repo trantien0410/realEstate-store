@@ -1,7 +1,9 @@
-import getCategory from "@/actions/get-category";
-import getColors from "@/actions/get-amenities";
+import getAmenities from "@/actions/get-amenities";
 import getProducts from "@/actions/get-products";
+import getCategories from "@/actions/get-categories";
+import getCategoriesByBillboard from "@/actions/get-categoriesByBillboard";
 import getSizes from "@/actions/get-sizes";
+import getBillboard from "@/actions/get-billboard";
 import Billboard from "@/components/ui/billboard";
 import Container from "@/components/ui/container";
 import Filter from "./components/filter";
@@ -11,41 +13,53 @@ import MobileFilters from "./components/mobile-filters";
 
 export const revalidate = 0;
 
-interface CategoryPageProps {
+interface BillboardPageProps {
   params: {
-    categoryId: string;
+    billboardId: string;
   };
   searchParams: {
-    colorId: string;
+    categoryId: string;
+    amenitiesId: string;
     sizeId: string;
   };
 }
 
-const CategoryPage: React.FC<CategoryPageProps> = async ({
+const BillboardPage: React.FC<BillboardPageProps> = async ({
   params,
   searchParams,
 }) => {
   const products = await getProducts({
-    categoryId: params.categoryId,
-    colorId: searchParams.colorId,
+    billboardId: params.billboardId,
+    categoryId: searchParams.categoryId,
+    amenitiesId: searchParams.amenitiesId,
     sizeId: searchParams.sizeId,
   });
 
   const sizes = await getSizes();
-  const colors = await getColors();
-  const category = await getCategory(params.categoryId);
+  const amenities = await getAmenities();
+  const categories = await getCategoriesByBillboard(params.billboardId);
+  const billboard = await getBillboard(params.billboardId);
 
   return (
     <div className="bg-white">
       <Container>
-        <Billboard data={category.billboard} />
+        <Billboard data={billboard} />
         <div className="px-4 sm:px-6 lg:px-8 pb-24">
           <div className="lg:grid lg:grid-cols-5 lg:gap-x-8">
             {/*Mobile Filters */}
-            <MobileFilters sizes={sizes} colors={colors} />
+            <MobileFilters
+              sizes={sizes}
+              amenities={amenities}
+              categories={categories}
+            />
             <div className="hidden lg:block">
-              <Filter valueKey="sizeId" name="Sizes" data={sizes} />
-              <Filter valueKey="colorId" name="Colors" data={colors} />
+              <Filter valueKey="categoryId" name="Thể Loại" data={categories} />
+              <Filter valueKey="sizeId" name="Kích Thước" data={sizes} />
+              <Filter
+                valueKey="amenitiesId"
+                name="Tiện Nghi"
+                data={amenities}
+              />
             </div>
             <div className="mt-6 lg:col-span-4 lg:mt-0">
               {products.length === 0 && <NoResults />}
@@ -62,4 +76,4 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
   );
 };
 
-export default CategoryPage;
+export default BillboardPage;

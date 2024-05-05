@@ -3,6 +3,7 @@ export interface Billboard {
   label: string;
   imageUrl?: string;
   videoUrl?: string;
+  category: Category;
 }
 
 export interface Category {
@@ -14,6 +15,7 @@ export interface Category {
 export interface Product {
   id: string;
   category: Category;
+  billboard: Billboard;
   name: string;
   description: string;
   address: string;

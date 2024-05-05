@@ -4,19 +4,20 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import { Category } from "@/types";
+import { Billboard, Category } from "@/types";
 
 interface MainNavProps {
-  data: Category[];
+  // data: Category[];
+  data: Billboard[];
 }
 
 const MainNav: React.FC<MainNavProps> = ({ data }) => {
   const pathname = usePathname();
 
   const routes = data.map((route) => ({
-    href: `/category/${route.id}`,
-    label: route.name,
-    active: pathname === `/category/${route.id}`,
+    href: `/billboard/${route.id}`,
+    label: route.label,
+    active: pathname === `/billboard/${route.id}`,
   }));
 
   return (
@@ -26,8 +27,8 @@ const MainNav: React.FC<MainNavProps> = ({ data }) => {
           key={route.href}
           href={route.href}
           className={cn(
-            "text-sm font-medium transition-colors hover:text-black",
-            route.active ? "text-black" : "text-neutral-500"
+            "text-lg font-medium transition-colors hover:text-black",
+            route.active ? "text-rose-500 font-bold" : "text-neutral-500"
           )}
         >
           {route.label}

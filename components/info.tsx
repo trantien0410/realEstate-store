@@ -7,7 +7,7 @@ import { Product } from "@/types";
 import { usePathname, useRouter } from "next/navigation";
 import usePreviewModal from "@/hooks/use-preview-modal";
 import { useEffect, useState } from "react";
-import { Button } from "./ui/button";
+import Button from "./ui/button";
 
 interface InfoProps {
   data: Product;
