@@ -1,6 +1,5 @@
 import getAmenities from "@/actions/get-amenities";
 import getProducts from "@/actions/get-products";
-import getCategories from "@/actions/get-categories";
 import getCategoriesByBillboard from "@/actions/get-categoriesByBillboard";
 import getSizes from "@/actions/get-sizes";
 import getBillboard from "@/actions/get-billboard";
@@ -10,6 +9,7 @@ import Filter from "./components/filter";
 import NoResults from "@/components/ui/no-results";
 import ProductCard from "@/components/ui/product-card";
 import MobileFilters from "./components/mobile-filters";
+import SearchModal from "@/components/modals/search-modal";
 
 export const revalidate = 0;
 
@@ -44,7 +44,7 @@ const BillboardPage: React.FC<BillboardPageProps> = async ({
     <div className="bg-white">
       <Container>
         <Billboard data={billboard} />
-        <div className="px-4 sm:px-6 lg:px-8 pb-24">
+        <div className="px-4 sm:px-6 lg:px-8 pb-24 pt-10">
           <div className="lg:grid lg:grid-cols-5 lg:gap-x-8">
             {/*Mobile Filters */}
             <MobileFilters
@@ -60,6 +60,7 @@ const BillboardPage: React.FC<BillboardPageProps> = async ({
                 name="Tiện Nghi"
                 data={amenities}
               />
+              <SearchModal billboardId={params.billboardId} />
             </div>
             <div className="mt-6 lg:col-span-4 lg:mt-0">
               {products.length === 0 && <NoResults />}

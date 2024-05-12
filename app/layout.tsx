@@ -6,6 +6,8 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 
 import "./globals.css";
+import SearchModal from "@/components/modals/search-modal";
+import ScrollToTop from "@/components/scroll-to-top";
 
 const font = Nunito({
   subsets: ["latin"],
@@ -26,9 +28,11 @@ export default function RootLayout({
       <body className={font.className}>
         <ToastProvider />
         <ModalProvider />
+        <SearchModal />
         <Navbar />
         {children}
         <Footer />
+        <ScrollToTop />
       </body>
     </html>
   );

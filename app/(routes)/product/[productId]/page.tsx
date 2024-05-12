@@ -5,6 +5,7 @@ import ProductList from "@/components/product-list";
 import Container from "@/components/ui/container";
 import Info from "@/components/info";
 import Description from "@/components/description";
+import ContainerIndividual from "@/components/ui/container-individual";
 
 export const revalidate = 0;
 
@@ -22,8 +23,8 @@ const ProductPage: React.FC<ProductPageProps> = async ({ params }) => {
   });
   return (
     <div className="bg-white">
-      <Container>
-        <div className="px-4 py-10 sm:px-6 lg:px-8">
+      <ContainerIndividual>
+        <div className="px-4 py-10 sm:px-6 lg:px-8 pt-20">
           <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
             {/* Gallery */}
             <Gallery images={product.images} videos={product.videos} />
@@ -37,7 +38,7 @@ const ProductPage: React.FC<ProductPageProps> = async ({ params }) => {
           <hr className="my-10" />
           <ProductList title="Related Items" items={suggestedProducts} />
         </div>
-      </Container>
+      </ContainerIndividual>
     </div>
   );
 };

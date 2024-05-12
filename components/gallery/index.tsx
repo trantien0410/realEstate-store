@@ -5,7 +5,6 @@ import { Image as ImageType, Video as VideoType } from "@/types";
 import { Tab } from "@headlessui/react";
 import GalleryTab from "./gallery-tab";
 import Image from "next/image";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 
 interface GalleryProps {
   images: ImageType[];

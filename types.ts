@@ -3,7 +3,6 @@ export interface Billboard {
   label: string;
   imageUrl?: string;
   videoUrl?: string;
-  category: Category;
 }
 
 export interface Category {

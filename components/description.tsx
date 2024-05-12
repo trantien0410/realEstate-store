@@ -17,9 +17,9 @@ const Description: React.FC<DescriptionProps> = ({ data }) => {
       <div className="text-lg whitespace-pre-wrap">
         {isExpanded
           ? data.description
-          : `${data.description.substring(0, 500)}`}
+          : `${data.description.substring(0, 1000)}`}
       </div>
-      {data.description.length > 500 && (
+      {data.description.length > 1000 && (
         <button onClick={toggleDescription} className="text-blue-500">
           {isExpanded ? "Read Less" : "Read More"}
         </button>

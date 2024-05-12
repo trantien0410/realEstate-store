@@ -6,7 +6,7 @@ interface BillboardProps {
 
 const Billboard: React.FC<BillboardProps> = ({ data }) => {
   return (
-    <div className="p-4 sm:p-6 lg:p-8 rounded-xl overflow-hidden">
+    <div className="pt-10 rounded-xl overflow-hidden">
       {data.imageUrl ? (
         <div
           style={{ backgroundImage: `url(${data.imageUrl})` }}
@@ -21,7 +21,7 @@ const Billboard: React.FC<BillboardProps> = ({ data }) => {
       ) : data.videoUrl ? (
         <video
           src={data.videoUrl}
-          className="rounded-xl relative aspect-square md:aspect-[2.4/1] overflow-hidden"
+          className="rounded-xl relative aspect-square md:aspect-[2.4/1] overflow-hidden w-full h-full"
           autoPlay
           loop
           muted
