@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import getProducts, { Query } from "@/actions/get-products";
 import ProductList from "@/components/product-list";
 import Loader from "./loader";
@@ -19,7 +19,7 @@ const DynamicProductList: React.FC<DynamicProductListProps> = ({
   const [allLoaded, setAllLoaded] = useState(initialProducts.length < 10); // Set based on initial load
   const limit = 10; // Number of products per load
 
-  const loadProducts = async () => {
+  const loadProducts = useCallback(async () => {
     if (allLoaded) return; // Stop loading if all products are loaded
 
     setLoading(true);
@@ -30,21 +30,38 @@ const DynamicProductList: React.FC<DynamicProductListProps> = ({
     setProducts((prev) => [...prev, ...newProducts]);
     setOffset((prev) => prev + limit);
     setLoading(false);
-  };
+  }, [allLoaded, searchParams, limit, offset]); // Dependencies
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const fetchedProducts = await getProducts({
+        ...searchParams,
+        limit,
+        offset: 0,
+      });
+      setProducts(fetchedProducts);
+      setOffset(fetchedProducts.length);
+      setAllLoaded(fetchedProducts.length < limit);
+      setLoading(false);
+    };
+
+    fetchData();
+  }, [searchParams]); // Ensure this only includes searchParams to react to changes in search conditions
 
   useEffect(() => {
     const handleScroll = () => {
       if (
-        window.innerHeight + document.documentElement.scrollTop !==
+        window.innerHeight + document.documentElement.scrollTop ===
         document.documentElement.offsetHeight
-      )
-        return;
-      loadProducts();
+      ) {
+        loadProducts();
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [offset, searchParams, allLoaded]); // Include allLoaded in dependencies
+  }, [loadProducts]); // Ensure this effect is correctly set up to handle infinite scrolling
 
   return (
     <>
