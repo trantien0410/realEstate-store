@@ -35,7 +35,12 @@ const Gallery: React.FC<GalleryProps> = ({ images, videos }) => {
   );
 
   return (
-    <Tab.Group as="div" className="flex flex-col-reverse">
+    <Tab.Group
+      as="div"
+      className="flex flex-col-reverse"
+      key={currentPage}
+      defaultIndex={0}
+    >
       <div className="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
         <Tab.List className="grid grid-cols-4 gap-6">
           {currentItems.map((media) => (

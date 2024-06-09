@@ -1,11 +1,10 @@
 import getProduct from "@/actions/get-product";
 import getProducts from "@/actions/get-products";
 import Gallery from "@/components/gallery";
-import ProductList from "@/components/product-list";
-import Container from "@/components/ui/container";
 import Info from "@/components/info";
 import Description from "@/components/description";
 import ContainerIndividual from "@/components/ui/container-individual";
+import SuggestProductList from "@/components/suggest-product-list";
 
 export const revalidate = 0;
 
@@ -36,7 +35,10 @@ const ProductPage: React.FC<ProductPageProps> = async ({ params }) => {
           <hr className="my-10" />
           <Description data={product} />
           <hr className="my-10" />
-          <ProductList title="Related Items" items={suggestedProducts} />
+          <SuggestProductList
+            title="Sản phẩm liên quan"
+            items={suggestedProducts}
+          />
         </div>
       </ContainerIndividual>
     </div>
